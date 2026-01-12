@@ -1,6 +1,6 @@
 import Cocoa
 
-/// Main controller for the Clif workflow
+/// Main controller for the clif workflow
 /// Handles: region selection -> recording -> GIF encoding -> clipboard + library
 final class ClifController {
     static let shared = ClifController()
@@ -21,7 +21,7 @@ final class ClifController {
             .appendingPathComponent(metadata.gifFilename)
 
         if ClipboardManager.copyGifToClipboard(gifURL) {
-            ToastWindow.showSuccess("Clif copied to clipboard!")
+            ToastWindow.showSuccess("clif copied to clipboard!")
         } else {
             ToastWindow.showError("Could not find clif file")
         }
@@ -29,7 +29,7 @@ final class ClifController {
 
     /// Start recording a selected region
     func startRecording(region: SelectedRegion) {
-        Log.info("Starting Clif recording for region: \(region.rect)", subsystem: .capture)
+        Log.info("Starting clif recording for region: \(region.rect)", subsystem: .capture)
 
         RecordingController.shared.startRecording(region: region) { result in
             switch result {
@@ -87,7 +87,7 @@ final class ClifController {
             NSSound.beep()
         }
 
-        ToastWindow.showSuccess("Clif copied to clipboard!")
+        ToastWindow.showSuccess("clif copied to clipboard!")
     }
 
     private func showError(_ error: Error) {

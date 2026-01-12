@@ -24,7 +24,7 @@ enum PermissionManager {
     private static func showScreenRecordingPermissionAlert() {
         let alert = NSAlert()
         alert.messageText = "Screen Recording Permission Required"
-        alert.informativeText = "Clif needs Screen Recording permission to capture your screen.\n\nClick 'Open System Settings' and add Clif to the list."
+        alert.informativeText = "Clify needs Screen Recording permission to capture your screen.\n\nClick 'Open System Settings' and add Clify to the list."
         alert.alertStyle = .warning
         alert.addButton(withTitle: "Open System Settings")
         alert.addButton(withTitle: "Later")
@@ -60,7 +60,7 @@ enum PermissionManager {
     static func showAccessibilityPermissionAlert() {
         let alert = NSAlert()
         alert.messageText = "Accessibility Permission Required"
-        alert.informativeText = "Clif needs Accessibility permission to register global hotkeys.\n\nClick 'Open System Settings' and enable Clif. The hotkey will activate automatically once permission is granted."
+        alert.informativeText = "Clify needs Accessibility permission to register global hotkeys.\n\nClick 'Open System Settings' and enable Clify. The hotkey will activate automatically once permission is granted."
         alert.alertStyle = .warning
         alert.addButton(withTitle: "Open System Settings")
         alert.addButton(withTitle: "Later")

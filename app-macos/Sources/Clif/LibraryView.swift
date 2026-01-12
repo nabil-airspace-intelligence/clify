@@ -24,9 +24,9 @@ struct LibraryView: View {
             Image(systemName: "photo.on.rectangle.angled")
                 .font(.system(size: 48))
                 .foregroundColor(.secondary)
-            Text("No Clifs Yet")
+            Text("No clifs yet")
                 .font(.headline)
-            Text("Press \u{2303}\u{2325}\u{2318}G to create your first clif")
+            Text("Press \u{2303}\u{21e7}\u{2318}C to create your first clif")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
         }
@@ -54,7 +54,7 @@ struct LibraryView: View {
 
     private func copyClif(_ clif: ClifItem) {
         if ClipboardManager.copyGifToClipboard(clif.gifURL) {
-            ToastWindow.showSuccess("Clif copied to clipboard!")
+            ToastWindow.showSuccess("clif copied to clipboard!")
         }
     }
 }

@@ -2,19 +2,19 @@
 import PackageDescription
 
 let package = Package(
-    name: "Clif",
+    name: "Clify",
     platforms: [
         .macOS(.v13)
     ],
     products: [
-        .executable(name: "Clif", targets: ["Clif"])
+        .executable(name: "Clify", targets: ["Clify"])
     ],
     dependencies: [
         .package(url: "https://github.com/cocoabits/MASShortcut.git", branch: "master")
     ],
     targets: [
         .executableTarget(
-            name: "Clif",
+            name: "Clify",
             dependencies: ["MASShortcut"],
             path: "Sources/Clif"
         )

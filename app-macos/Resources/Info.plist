@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
     <key>CFBundleName</key>
-    <string>Clif</string>
+    <string>Clify</string>
     <key>CFBundleDisplayName</key>
-    <string>Clif</string>
+    <string>Clify</string>
     <key>CFBundleIdentifier</key>
-    <string>com.clif.app</string>
+    <string>com.clify.app</string>
     <key>CFBundleVersion</key>
     <string>1</string>
     <key>CFBundleShortVersionString</key>
@@ -15,7 +15,7 @@
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleExecutable</key>
-    <string>Clif</string>
+    <string>Clify</string>
     <key>LSMinimumSystemVersion</key>
     <string>13.0</string>
     <key>LSUIElement</key>
@@ -23,6 +23,6 @@
     <key>NSHumanReadableCopyright</key>
     <string>Copyright © 2024. All rights reserved.</string>
     <key>NSScreenCaptureUsageDescription</key>
-    <string>Clif needs screen recording permission to capture your screen and create GIFs.</string>
+    <string>Clify needs screen recording permission to capture your screen and create clifs.</string>
 </dict>
 </plist>

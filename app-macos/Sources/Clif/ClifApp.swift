@@ -2,15 +2,15 @@ import SwiftUI
 import ApplicationServices
 
 @main
-struct ClifApp: App {
+struct ClifyApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     var body: some Scene {
-        MenuBarExtra("Clif", systemImage: "record.circle") {
+        MenuBarExtra("Clify", systemImage: "record.circle") {
             MenuBarView()
         }
 
-        Window("Clif Library", id: "library") {
+        Window("Clify Library", id: "library") {
             LibraryView()
         }
         .defaultSize(width: 600, height: 400)
@@ -22,7 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var permissionCheckTimer: Timer?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        Log.info("Clif launched", subsystem: .app)
+        Log.info("Clify launched", subsystem: .app)
 
         // Use AXIsProcessTrustedWithOptions to check AND prompt if needed
         let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary
@@ -55,6 +55,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ notification: Notification) {
         permissionCheckTimer?.invalidate()
-        Log.info("Clif terminating", subsystem: .app)
+        Log.info("Clify terminating", subsystem: .app)
     }
 }

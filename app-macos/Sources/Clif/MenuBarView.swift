@@ -4,7 +4,7 @@ struct MenuBarView: View {
     @Environment(\.openWindow) private var openWindow
 
     var body: some View {
-        Button("New Clif...") {
+        Button("New clif...") {
             startNewClif()
         }
         .keyboardShortcut("c", modifiers: [.control, .shift, .command])
@@ -19,7 +19,7 @@ struct MenuBarView: View {
             openLibraryInFinder()
         }
 
-        Button("Copy Last Clif") {
+        Button("Copy last clif") {
             ClifController.shared.recopyLastClif()
         }
         .keyboardShortcut("c", modifiers: [.control, .option, .command])
@@ -47,7 +47,7 @@ struct MenuBarView: View {
         let libraryPath = FileManager.default.urls(
             for: .applicationSupportDirectory,
             in: .userDomainMask
-        ).first?.appendingPathComponent("Clif/Clifs")
+        ).first?.appendingPathComponent("Clify/clifs")
 
         if let path = libraryPath {
             try? FileManager.default.createDirectory(at: path, withIntermediateDirectories: true)

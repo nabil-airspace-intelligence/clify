@@ -1,6 +1,6 @@
 import Foundation
 
-/// Metadata for a saved Clif
+/// Metadata for a saved clif
 struct ClifMetadata: Codable {
     let id: String
     let createdAt: Date
@@ -20,13 +20,13 @@ struct ClifMetadata: Codable {
     }
 }
 
-/// Manages the Clif library storage
+/// Manages the clif library storage
 enum LibraryManager {
 
-    /// Base library directory: ~/Library/Application Support/Clif/Clifs/
+    /// Base library directory: ~/Library/Application Support/Clify/clifs/
     static var libraryURL: URL {
         let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-        return appSupport.appendingPathComponent("Clif/Clifs")
+        return appSupport.appendingPathComponent("Clify/clifs")
     }
 
     /// Get the folder for a specific date (YYYY/MM/)
@@ -108,7 +108,7 @@ enum LibraryManager {
         let jsonData = try encoder.encode(metadata)
         try jsonData.write(to: metadataURL)
 
-        Log.info("Clif saved to library: \(destGifURL.path)", subsystem: .storage)
+        Log.info("clif saved to library: \(destGifURL.path)", subsystem: .storage)
 
         return metadata
     }
