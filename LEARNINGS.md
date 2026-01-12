@@ -176,3 +176,25 @@ config.showsCursor = true
 ```swift
 let flippedY = screen.frame.maxY - rect.origin.y - rect.height
 ```
+
+## GIF Encoding (M3)
+
+### gifski
+- High-quality GIF encoder: `brew install gifski`
+- Takes video file as input, outputs GIF
+- Key flags: `--fps`, `--width`, `--quality`
+- For distribution: bundle binary in app, check `Bundle.main.path(forResource:ofType:)`
+
+### Clipboard for Animated GIFs
+- **Don't** add TIFF data - apps will prefer it and lose animation
+- Use file URL for best compatibility:
+```swift
+pasteboard.writeObjects([gifURL as NSURL])
+```
+- Important: clipboard URL must point to existing file when user pastes
+- Save to library FIRST, then copy library path to clipboard
+
+### Library Storage
+- Path: `~/Library/Application Support/Clif/Clifs/YYYY/MM/`
+- Files: `{timestamp}_{hash}.gif`, `.mp4` (optional), `.json` (metadata)
+- Use `JSONEncoder` with `.prettyPrinted` and `.iso8601` date encoding
