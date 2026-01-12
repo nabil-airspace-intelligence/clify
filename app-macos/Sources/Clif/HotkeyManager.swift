@@ -38,8 +38,7 @@ final class HotkeyManager {
         RegionSelector.shared.startSelection { region in
             if let region = region {
                 Log.info("Selection complete: \(region.rect)", subsystem: .capture)
-                // TODO: M2 - start recording this region
-                NSSound.beep()
+                ClifController.shared.startRecording(region: region)
             } else {
                 Log.info("Selection cancelled", subsystem: .capture)
             }

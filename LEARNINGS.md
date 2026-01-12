@@ -138,3 +138,41 @@ if #available(macOS 14.0, *) {
 - Copy executable to `Clif.app/Contents/MacOS/`
 - Copy Info.plist to `Clif.app/Contents/`
 - Ad-hoc sign to preserve permissions: `codesign --force --deep --sign - "$APP_BUNDLE"`
+
+## Screen Recording (M2)
+
+### ScreenCaptureKit Setup
+- Check permission by calling `SCShareableContent.excludingDesktopWindows()` - triggers prompt if needed
+- Find display via `content.displays.first(where: { $0.displayID == displayID })`
+- Use `SCContentFilter(display:excludingWindows:)` for display capture
+- `SCStreamConfiguration` for region/resolution/fps settings
+
+### SCStreamConfiguration Tips
+```swift
+config.sourceRect = region           // Region to capture (CGRect)
+config.width = Int(region.width) * 2 // 2x for Retina
+config.height = Int(region.height) * 2
+config.minimumFrameInterval = CMTime(value: 1, timescale: 30) // 30 fps
+config.pixelFormat = kCVPixelFormatType_32BGRA
+config.showsCursor = true
+```
+
+### AVAssetWriter for MP4
+- Create with `.mp4` file type
+- Video settings need codec, dimensions, compression properties
+- `expectsMediaDataInRealTime = true` for live capture
+- Use `AVAssetWriterInputPixelBufferAdaptor` to append pixel buffers
+- Track relative timestamps from first frame
+
+### Event Monitoring
+- `addGlobalMonitorForEvents` - catches events when OTHER apps have focus
+- `addLocalMonitorForEvents` - catches events when YOUR app has focus
+- **Need both** for reliable Esc key handling during recording
+- Local monitor can return `nil` to consume the event
+
+### Recording Frame Overlay
+- Borderless window with `ignoresMouseEvents = true`
+- Convert CGRect (top-left origin) to NSRect (bottom-left origin) for positioning:
+```swift
+let flippedY = screen.frame.maxY - rect.origin.y - rect.height
+```
