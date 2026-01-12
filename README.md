@@ -1,5 +1,7 @@
 # Clify
 
+> ‼️ Warning - clify has been build primarily by Claude, code has not been thoroughly inspected. 
+
 <p align="center">
   <img src="clify.png" width="128" height="128" alt="Clify icon">
 </p>

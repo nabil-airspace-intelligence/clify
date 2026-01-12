@@ -17,18 +17,18 @@ enum Log {
     }
 
     static func debug(_ message: String, subsystem: LogSubsystem) {
-        logger(for: subsystem).debug("\(message)")
+        logger(for: subsystem).debug("\(message, privacy: .public)")
     }
 
     static func info(_ message: String, subsystem: LogSubsystem) {
-        logger(for: subsystem).info("\(message)")
+        logger(for: subsystem).info("\(message, privacy: .public)")
     }
 
     static func warning(_ message: String, subsystem: LogSubsystem) {
-        logger(for: subsystem).warning("\(message)")
+        logger(for: subsystem).warning("\(message, privacy: .public)")
     }
 
     static func error(_ message: String, subsystem: LogSubsystem) {
-        logger(for: subsystem).error("\(message)")
+        logger(for: subsystem).error("\(message, privacy: .public)")
     }
 }

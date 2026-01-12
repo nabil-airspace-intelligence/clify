@@ -13,6 +13,12 @@ struct MenuBarView: View {
 
         Button("Open Library") {
             openWindow(id: "library")
+            DispatchQueue.main.async {
+                NSApp.activate(ignoringOtherApps: true)
+                if let window = NSApp.windows.first(where: { $0.title == "Clify Library" }) {
+                    window.makeKeyAndOrderFront(nil)
+                }
+            }
         }
 
         Button("Open in Finder") {
