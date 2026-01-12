@@ -42,11 +42,11 @@ struct HotkeySettingsView: View {
             Text("Global Hotkey")
                 .font(.headline)
 
-            Text("Default: ⌃⌥⌘G")
-                .foregroundColor(.secondary)
+            Text("⌃⇧⌘C")
+                .font(.system(size: 24, weight: .medium))
+                .padding(.vertical, 4)
 
-            // TODO: M5 - Add MASShortcut picker view here
-            Text("Hotkey customization coming soon")
+            Text("Control + Shift + Command + C")
                 .foregroundColor(.secondary)
                 .font(.caption)
         }

@@ -7,7 +7,7 @@ struct MenuBarView: View {
         Button("New Clif...") {
             startNewClif()
         }
-        .keyboardShortcut("g", modifiers: [.control, .option, .command])
+        .keyboardShortcut("c", modifiers: [.control, .shift, .command])
 
         Divider()
 
@@ -27,7 +27,7 @@ struct MenuBarView: View {
         Divider()
 
         Button("Preferences...") {
-            openSettings()
+            openPreferences()
         }
         .keyboardShortcut(",", modifiers: .command)
 
@@ -62,7 +62,11 @@ struct MenuBarView: View {
         }
     }
 
-    private func openSettings() {
+    private func openPreferences() {
+        // Activate app first (needed for menu bar apps)
+        NSApp.activate(ignoringOtherApps: true)
+
+        // Open settings window
         if #available(macOS 14.0, *) {
             NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
         } else {

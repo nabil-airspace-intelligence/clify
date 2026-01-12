@@ -11,8 +11,8 @@ final class HotkeyManager {
 
     func registerDefaultHotkey() {
         let shortcut = MASShortcut(
-            keyCode: Int(kVK_ANSI_G),
-            modifierFlags: [.control, .option, .command]
+            keyCode: Int(kVK_ANSI_C),
+            modifierFlags: [.control, .shift, .command]
         )
 
         guard let monitor = MASShortcutMonitor.shared() else {
@@ -26,7 +26,7 @@ final class HotkeyManager {
 
         if registered {
             registeredShortcut = shortcut
-            Log.info("Global hotkey registered: ⌃⌥⌘G", subsystem: .hotkey)
+            Log.info("Global hotkey registered: ⌃⇧⌘C", subsystem: .hotkey)
         } else {
             Log.error("Failed to register global hotkey", subsystem: .hotkey)
         }
