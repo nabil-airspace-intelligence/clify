@@ -29,6 +29,12 @@ cp ".build/release/Clify" "$MACOS_DIR/"
 # Copy Info.plist
 cp "Resources/Info.plist" "$CONTENTS_DIR/"
 
+# Copy app icon if it exists
+if [ -f "Resources/AppIcon.icns" ]; then
+    cp "Resources/AppIcon.icns" "$RESOURCES_DIR/"
+    echo "Copied app icon"
+fi
+
 # Bundle gifski binary
 GIFSKI_PATH="/opt/homebrew/bin/gifski"
 if [ -f "$GIFSKI_PATH" ]; then
