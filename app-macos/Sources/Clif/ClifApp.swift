@@ -14,10 +14,6 @@ struct ClifApp: App {
             LibraryView()
         }
         .defaultSize(width: 600, height: 400)
-
-        Settings {
-            SettingsView()
-        }
     }
 }
 

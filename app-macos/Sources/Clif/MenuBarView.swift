@@ -26,13 +26,6 @@ struct MenuBarView: View {
 
         Divider()
 
-        Button("Preferences...") {
-            openPreferences()
-        }
-        .keyboardShortcut(",", modifiers: .command)
-
-        Divider()
-
         Button("Quit") {
             NSApplication.shared.terminate(nil)
         }
@@ -62,15 +55,4 @@ struct MenuBarView: View {
         }
     }
 
-    private func openPreferences() {
-        // Activate app first (needed for menu bar apps)
-        NSApp.activate(ignoringOtherApps: true)
-
-        // Open settings window
-        if #available(macOS 14.0, *) {
-            NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
-        } else {
-            NSApp.sendAction(Selector(("showPreferencesWindow:")), to: nil, from: nil)
-        }
-    }
 }
