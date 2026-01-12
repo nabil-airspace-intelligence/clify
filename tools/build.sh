@@ -29,6 +29,20 @@ cp ".build/release/Clif" "$MACOS_DIR/"
 # Copy Info.plist
 cp "Resources/Info.plist" "$CONTENTS_DIR/"
 
+# Bundle gifski binary
+GIFSKI_PATH="/opt/homebrew/bin/gifski"
+if [ -f "$GIFSKI_PATH" ]; then
+    # Resolve symlink to get actual binary
+    GIFSKI_REAL=$(readlink -f "$GIFSKI_PATH" 2>/dev/null || realpath "$GIFSKI_PATH")
+    cp "$GIFSKI_REAL" "$RESOURCES_DIR/gifski"
+    chmod +x "$RESOURCES_DIR/gifski"
+    echo "Bundled gifski from $GIFSKI_REAL"
+else
+    echo "WARNING: gifski not found at $GIFSKI_PATH"
+    echo "         Install with: brew install gifski"
+    echo "         App will not work without gifski!"
+fi
+
 # Ad-hoc code sign to preserve permissions across rebuilds
 codesign --force --deep --sign - "$APP_BUNDLE"
 
