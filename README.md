@@ -77,6 +77,7 @@ brew install gifski
 
 ## Future Items
 
+- [ ] Unit and integration tests
 - [ ] First-launch permissions wizard
 - [ ] Preferences window (hotkey customization, output settings)
 - [ ] Trim/edit before saving

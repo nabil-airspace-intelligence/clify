@@ -1,0 +1,59 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Add Rust targets
+        run: |
+          rustup target add aarch64-apple-darwin
+          rustup target add x86_64-apple-darwin
+
+      - name: Build app
+        run: ./tools/build.sh
+
+      - name: Get version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Create ZIP
+        run: |
+          cd build
+          zip -r Clify-${{ steps.version.outputs.VERSION }}.zip Clify.app
+
+      - name: Create DMG
+        run: |
+          cd build
+          hdiutil create -volname "Clify" -srcfolder Clify.app -ov -format UDZO Clify-${{ steps.version.outputs.VERSION }}.dmg
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Clify v${{ steps.version.outputs.VERSION }}
+          draft: false
+          prerelease: false
+          files: |
+            build/Clify-${{ steps.version.outputs.VERSION }}.zip
+            build/Clify-${{ steps.version.outputs.VERSION }}.dmg
+          body: |
+            ## Installation
+
+            1. Download `Clify-${{ steps.version.outputs.VERSION }}.zip` or `Clify-${{ steps.version.outputs.VERSION }}.dmg`
+            2. Unzip or mount and drag `Clify.app` to Applications
+            3. Right-click → "Open" on first launch (app is unsigned)
+            4. Grant **Accessibility** and **Screen Recording** permissions when prompted
+
+            ## Requirements
+            - macOS 13.0 or later
