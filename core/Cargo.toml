@@ -1,0 +1,12 @@
+[package]
+name = "clif-core"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["staticlib", "cdylib"]
+
+[dependencies]
+# Dependencies will be added as needed
+# gifski = "1.12"  # For GIF encoding (M3)
+# log = "0.4"
