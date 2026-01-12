@@ -22,32 +22,20 @@ final class RecordingController {
             return
         }
 
-        Task {
-            // Check screen recording permission first
-            let hasPermission = await PermissionManager.checkScreenRecordingPermission()
-            guard hasPermission else {
-                await MainActor.run {
-                    completion(.failure(ScreenRecorder.RecorderError.setupFailed("Screen Recording permission not granted")))
-                }
-                return
-            }
+        // Permission is checked at app launch, so we proceed directly
+        isRecording = true
+        hud.show()
 
-            await MainActor.run {
-                self.isRecording = true
-                self.hud.show()
+        // Show frame around recording region
+        if let screen = screenForDisplay(region.screenID) {
+            frame.show(around: region.rect, on: screen)
+        }
 
-                // Show frame around recording region
-                if let screen = self.screenForDisplay(region.screenID) {
-                    self.frame.show(around: region.rect, on: screen)
-                }
-
-                self.recorder.startRecording(region: region.rect, displayID: region.screenID) { [weak self] result in
-                    self?.frame.hide()
-                    self?.hud.hide()
-                    self?.isRecording = false
-                    completion(result)
-                }
-            }
+        recorder.startRecording(region: region.rect, displayID: region.screenID) { [weak self] result in
+            self?.frame.hide()
+            self?.hud.hide()
+            self?.isRecording = false
+            completion(result)
         }
     }
 
