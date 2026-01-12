@@ -6,8 +6,26 @@ final class ClifController {
     static let shared = ClifController()
 
     private let gifEncoder = GifEncoder()
+    private(set) var lastClifMetadata: ClifMetadata?
 
     private init() {}
+
+    /// Re-copy the last clif to clipboard
+    func recopyLastClif() {
+        guard let metadata = lastClifMetadata else {
+            ToastWindow.showError("No recent clif to copy")
+            return
+        }
+
+        let gifURL = LibraryManager.folderURL(for: metadata.createdAt)
+            .appendingPathComponent(metadata.gifFilename)
+
+        if ClipboardManager.copyGifToClipboard(gifURL) {
+            ToastWindow.showSuccess("Clif copied to clipboard!")
+        } else {
+            ToastWindow.showError("Could not find clif file")
+        }
+    }
 
     /// Start recording a selected region
     func startRecording(region: SelectedRegion) {
@@ -48,6 +66,7 @@ final class ClifController {
                 ClipboardManager.copyGifToClipboard(savedGifURL)
 
                 await MainActor.run {
+                    self.lastClifMetadata = metadata
                     self.showSuccess(metadata)
                 }
 
@@ -68,27 +87,11 @@ final class ClifController {
             NSSound.beep()
         }
 
-        // Show brief notification (TODO: replace with toast)
-        let alert = NSAlert()
-        alert.messageText = "Clif Copied!"
-        alert.informativeText = "GIF is in your clipboard and saved to library.\n\nDuration: \(metadata.durationMs / 1000)s"
-        alert.alertStyle = .informational
-        alert.addButton(withTitle: "OK")
-        alert.addButton(withTitle: "Open Library")
-
-        let response = alert.runModal()
-        if response == .alertSecondButtonReturn {
-            let folder = LibraryManager.folderURL(for: metadata.createdAt)
-            NSWorkspace.shared.open(folder)
-        }
+        ToastWindow.showSuccess("Clif copied to clipboard!")
     }
 
     private func showError(_ error: Error) {
-        let alert = NSAlert()
-        alert.messageText = "Clif Failed"
-        alert.informativeText = error.localizedDescription
-        alert.alertStyle = .warning
-        alert.addButton(withTitle: "OK")
-        alert.runModal()
+        NSSound.beep()
+        ToastWindow.showError(error.localizedDescription)
     }
 }

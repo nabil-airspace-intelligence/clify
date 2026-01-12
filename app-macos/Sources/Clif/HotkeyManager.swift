@@ -15,20 +15,25 @@ final class HotkeyManager {
             modifierFlags: [.control, .option, .command]
         )
 
+        debugLog("Attempting to register hotkey...")
+
         guard let monitor = MASShortcutMonitor.shared() else {
-            Log.error("Failed to get MASShortcutMonitor", subsystem: .hotkey)
+            debugLog("ERROR: Failed to get MASShortcutMonitor")
             return
         }
 
+        debugLog("Got monitor, registering shortcut...")
+
         let registered = monitor.register(shortcut, withAction: { [weak self] in
+            debugLog("Hotkey triggered!")
             self?.hotkeyTriggered()
         })
 
         if registered {
             registeredShortcut = shortcut
-            Log.info("Global hotkey registered: ⌃⌥⌘G", subsystem: .hotkey)
+            debugLog("Global hotkey registered successfully: ⌃⌥⌘G")
         } else {
-            Log.error("Failed to register global hotkey", subsystem: .hotkey)
+            debugLog("ERROR: Failed to register global hotkey")
         }
     }
 

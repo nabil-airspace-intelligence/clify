@@ -12,8 +12,17 @@ Lessons learned during M0-M1 development.
 - For fresh permission testing, change bundle identifier or use `tccutil reset Accessibility`
 
 ### Permission Flow
-- Check permission on app launch before registering global hotkeys
-- Show alert with "Open System Settings" button linking to `x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility`
+- Use `AXIsProcessTrustedWithOptions` with `kAXTrustedCheckOptionPrompt: true` to check AND show system prompt
+- System prompt is non-blocking, so app can continue and poll for permission
+- Poll for permission every second and register hotkey when granted
+- Deep link: `x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility`
+
+### Code Signature & Permission Caching
+- **Critical**: Accessibility permission is cached by code signature hash
+- Ad-hoc signing (`codesign --force --deep --sign -`) creates different hashes each build
+- Result: permission granted for previous build doesn't work for new build
+- During development, use `tccutil reset Accessibility com.clif.app` to clear stale permissions
+- For distribution, use a stable signing identity (Developer ID or consistent certificate)
 
 ## Global Hotkeys (MASShortcut)
 

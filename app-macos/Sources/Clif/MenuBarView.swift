@@ -3,7 +3,6 @@ import SwiftUI
 struct MenuBarView: View {
     var body: some View {
         Button("New Clif...") {
-            Log.info("New Clif triggered from menu", subsystem: .app)
             startNewClif()
         }
         .keyboardShortcut("g", modifiers: [.control, .option, .command])
@@ -11,9 +10,13 @@ struct MenuBarView: View {
         Divider()
 
         Button("Open Library") {
-            Log.info("Open Library triggered", subsystem: .app)
             openLibrary()
         }
+
+        Button("Copy Last Clif") {
+            ClifController.shared.recopyLastClif()
+        }
+        .keyboardShortcut("c", modifiers: [.control, .option, .command])
 
         Divider()
 
@@ -25,7 +28,6 @@ struct MenuBarView: View {
         Divider()
 
         Button("Quit") {
-            Log.info("Quit triggered", subsystem: .app)
             NSApplication.shared.terminate(nil)
         }
         .keyboardShortcut("q")
