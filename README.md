@@ -1,7 +1,7 @@
 # Clify
 
 <p align="center">
-  <img src="app-macos/Resources/clify.svg" width="128" height="128" alt="Clify icon">
+  <img src="clify.png" width="128" height="128" alt="Clify icon">
 </p>
 
 <p align="center">
