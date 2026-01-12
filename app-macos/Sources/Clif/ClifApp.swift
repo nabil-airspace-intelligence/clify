@@ -29,6 +29,11 @@ struct ClifApp: App {
             MenuBarView()
         }
 
+        Window("Clif Library", id: "library") {
+            LibraryView()
+        }
+        .defaultSize(width: 600, height: 400)
+
         Settings {
             SettingsView()
         }

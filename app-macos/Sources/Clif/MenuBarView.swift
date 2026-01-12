@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct MenuBarView: View {
+    @Environment(\.openWindow) private var openWindow
+
     var body: some View {
         Button("New Clif...") {
             startNewClif()
@@ -10,7 +12,11 @@ struct MenuBarView: View {
         Divider()
 
         Button("Open Library") {
-            openLibrary()
+            openWindow(id: "library")
+        }
+
+        Button("Open in Finder") {
+            openLibraryInFinder()
         }
 
         Button("Copy Last Clif") {
@@ -44,7 +50,7 @@ struct MenuBarView: View {
         }
     }
 
-    private func openLibrary() {
+    private func openLibraryInFinder() {
         let libraryPath = FileManager.default.urls(
             for: .applicationSupportDirectory,
             in: .userDomainMask
