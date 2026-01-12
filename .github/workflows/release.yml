@@ -38,8 +38,22 @@ jobs:
 
       - name: Create DMG
         run: |
+          brew install create-dmg
           cd build
-          hdiutil create -volname "Clify" -srcfolder Clify.app -ov -format UDZO Clify-${{ steps.version.outputs.VERSION }}.dmg
+          create-dmg \
+            --volname "Clify" \
+            --volicon "Clify.app/Contents/Resources/AppIcon.icns" \
+            --window-pos 200 120 \
+            --window-size 600 400 \
+            --icon-size 100 \
+            --icon "Clify.app" 150 185 \
+            --hide-extension "Clify.app" \
+            --app-drop-link 450 185 \
+            --no-internet-enable \
+            "Clify-${{ steps.version.outputs.VERSION }}.dmg" \
+            "Clify.app" || true
+          # create-dmg returns non-zero if code signing fails, but DMG is still created
+          test -f "Clify-${{ steps.version.outputs.VERSION }}.dmg"
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
